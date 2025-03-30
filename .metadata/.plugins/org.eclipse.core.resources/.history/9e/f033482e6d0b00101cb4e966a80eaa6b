@@ -1,0 +1,17 @@
+
+public class ExtentReporterNG
+
+{
+
+	
+	
+	public void getReportObject()
+	{
+		
+		String path=System.getProperty("user.dir")+"//reports//index.html";
+		ExtenetSparkReporter reporter=new ExtentSparkReporter();
+		repoter.com
+	}
+	
+	
+}

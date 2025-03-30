@@ -1,0 +1,44 @@
+package frame.pageObjects;
+
+import java.util.List;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+import frame.abstarctComponents.AbstractComponents;
+
+public class LoginPageObject extends AbstractComponents{
+	
+	public WebDriver driver;
+	
+	public LoginPageObject(WebDriver driver)
+	{
+		super(driver);
+		this.driver=driver;
+		PageFactory.initElements(driver, this);
+	}
+	
+	@FindBy(css="#userEmail")
+	WebElement email;
+	
+	@FindBy(css="[placeholder='enter your passsword']")
+	WebElement pwd;
+	
+	@FindBy(css="[value='Login']")
+	WebElement login;
+	
+
+
+	
+	public void login(String username,String pass)
+	{
+		email.sendKeys(username);
+		pwd.sendKeys(pass);
+		login.click();
+	}
+
+	
+	
+}

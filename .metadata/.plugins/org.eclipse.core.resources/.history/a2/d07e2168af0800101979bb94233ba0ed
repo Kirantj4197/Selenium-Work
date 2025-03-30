@@ -1,0 +1,28 @@
+package frame.TestBase;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.Properties;
+
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
+
+public class BaseClass {
+
+	
+	public Properties pr;
+	
+	@Parameters("browser")
+	@BeforeClass
+	public void setUp() throws FileNotFoundException
+	{
+		
+		
+		FileReader fr=new FileReader("./src/test/resources/Global.properties");
+		pr=new Properties();
+		pr.load(fr);
+		
+		
+		
+	}
+}

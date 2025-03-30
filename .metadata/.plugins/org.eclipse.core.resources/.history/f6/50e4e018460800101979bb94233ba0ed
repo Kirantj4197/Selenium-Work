@@ -1,0 +1,13 @@
+package frame.abstarctComponents;
+
+public class AbstractComponents {
+	
+	WebDriver driver;
+	
+	public AbstractComponents()
+	{
+		this.driver=driver;
+		
+	}
+
+}

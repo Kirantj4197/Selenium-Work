@@ -1,0 +1,141 @@
+package frame.Test;
+
+import java.time.Duration;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+import frame.TestBase.BaseClass;
+import frame.pageObjects.CartPagePageObject;
+import frame.pageObjects.CheckoutPageObject;
+import frame.pageObjects.LoginPageObject;
+import frame.pageObjects.PageObjectManager;
+import frame.pageObjects.ProductCataloguePageObject;
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class E2E extends BaseClass {
+	
+	public PageObjectManager manager;
+	public LoginPageObject lp;
+
+	public CheckoutPageObject cpo;
+	public CartPagePageObject cpp;
+	public ProductCataloguePageObject pcp;
+	
+	
+	
+	@Test(dataProvider="login")
+	public void E2E(String user,String pwd,String product)
+	{
+		
+		
+		//WebDriverManager.chromedriver().setup();
+		//WebDriver driver=new ChromeDriver();
+		//driver.manage().window().maximize();
+		//driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(6));
+		manager=new PageObjectManager(driver);
+		
+		
+		driver.get("https://rahulshettyacademy.com/client");
+		//String product="IPHONE 13 PRO";
+		String con="British Indian Ocean Territory";
+		//String user="kirantj4197@yahoo.com";
+		//String pwd="Kirantj4197#";
+		//LoginPageObject lpo=new LoginPageObject(driver);
+		//ProductCataloguePageObject pcpo=new ProductCataloguePageObject(driver);
+		//CartPagePageObject cpo=new CartPagePageObject(driver);
+		//CheckoutPageObject check=new CheckoutPageObject(driver);
+		lp=manager.returnLoginPage();
+		pcp=manager.returnProductCatalogue();
+		cpp=manager.returnCartPage();
+		cpo=manager.returnCheckoutPage();
+		lp.login(user, pwd);
+		pcp.addToCartLogic(product);
+		Boolean res=cpp.cartPageValidations(product);
+		Assert.assertTrue(res);
+		cpp.checkoutClick();
+		cpo.checkoutPageValidations(con);
+		
+		
+		//driver.findElement(By.cssSelector("#userEmail")).sendKeys("kirantj4197@yahoo.com");
+		//driver.findElement(By.cssSelector("[placeholder='enter your passsword']")).sendKeys("Kirantj4197#");
+		//driver.findElement(By.cssSelector("[value='Login']")).click();
+		
+		
+		
+		
+		//WebElement pro=driver.findElement(By.xpath("//div/h5/b"));
+		
+		
+		//WebDriverWait wait=new WebDriverWait(driver,Duration.ofSeconds(10));
+		//wait.until(ExpectedConditions.visibilityOf(pro));
+		
+		//List<WebElement>allProducts=driver.findElements(By.xpath("//div/h5/b"));
+			
+	//WebElement porul=allProducts.stream().filter(s->s.getText().contains(product)).findFirst().orElse(null);
+	//porul.findElement(By.xpath("parent::h5/following-sibling::button[@class='btn w-10 rounded']")).click();
+	//WebElement noti=driver.findElement(By.xpath("//div[text()=' Product Added To Cart ']"));
+	//wait.until(ExpectedConditions.visibilityOf(noti));
+	
+	
+	//driver.findElement(By.cssSelector("button[routerlink*='/cart']")).click();
+	
+	//WebElement porulInCart=driver.findElement(By.xpath("//div[@class='cartSection']/h3"));
+	
+	//wait.until(ExpectedConditions.visibilityOf(porulInCart));
+	
+	
+	//List<WebElement> prosInCart=driver.findElements(By.xpath("//div[@class='cartSection']/h3"));
+	
+	
+	//Boolean res=prosInCart.stream().anyMatch(s->s.getText().contains(product));
+
+	//Assert.assertTrue(res);
+	
+	//driver.findElement(By.xpath("//button[text()='Checkout']")).click();
+	
+	/*WebElement country=driver.findElement(By.cssSelector("[placeholder='Select Country']"));
+	
+	wait.until(ExpectedConditions.visibilityOf(country));
+	
+	country.sendKeys("ind");
+	WebElement opt=driver.findElement(By.cssSelector("button[class*='ng-star-inserted']"));
+	
+	wait.until(ExpectedConditions.visibilityOf(opt));
+	
+	List<WebElement>allplaces=driver.findElements(By.cssSelector("button[class*='ng-star-inserted'] span"));
+	
+	
+	for(WebElement place:allplaces)
+	{
+		System.out.println(place.getText());
+		if(place.getText().contains(con))
+		{
+			place.click();
+			break;
+		}
+	}
+		
+	
+	driver.findElement(By.cssSelector("a[class*='action__submit']")).click();*/
+	}
+	
+	
+	@DataProvider(name="login")
+	public Object getData()
+	{
+		return new Object[][] { {"kirantj4197@yahoo.com","Kirantj4197#","IPHONE 13 PRO"}};
+	}
+	
+	
+
+}

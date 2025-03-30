@@ -1,0 +1,19 @@
+package frame.pageObjects;
+
+public class PageObjectManager {
+	
+	public LoginPageObject lp;
+	
+	
+	public PageObjectManager(WebDriver driver)
+	{
+		
+	}
+	
+	
+	public LoginPageObject returnLoginPage()
+	{
+		
+	}
+
+}

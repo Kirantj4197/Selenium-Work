@@ -1,0 +1,80 @@
+package frame.TestBase;
+
+import java.io.IOException;
+
+import org.testng.ITestContext;
+import org.testng.ITestListener;
+import org.testng.ITestResult;
+
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
+
+import frame.resources.ExtentReporterNG;
+
+
+public class Listeners extends BaseClass implements ITestListener
+
+{
+	
+	
+
+	ExtentReports extent= ExtentReporterNG.getReportObject();
+	ExtentTest test;
+	ThreadLocal<ExtentTest> extentTest=new ThreadLocal<ExtentTest>();
+	
+	 @Override
+	    public void onTestStart(ITestResult result) {
+	        test = extent.createTest(result.getMethod().getMethodName());
+	    }
+
+	    @Override
+	    public void onTestSuccess(ITestResult result) {
+	        test.log(Status.PASS, "PASSED");
+	    }
+
+	    @Override
+	    public void onTestFailure(ITestResult result) {
+	        test.fail(result.getThrowable());
+
+	        // Ensure WebDriver is properly initialized before using it
+	        if (driver != null) {
+	            String path = null;
+	            try {
+	                // Capture screenshot on failure
+	                path = getScreenshot(result.getMethod().getMethodName(), driver);
+	                test.addScreenCaptureFromPath(path, result.getMethod().getMethodName());
+	            } catch (IOException e) {
+	                e.printStackTrace();
+	            }
+	        } else {
+	            System.out.println("Driver is not initialized or null!");
+	        }
+	    }
+
+	    @Override
+	    public void onTestSkipped(ITestResult result) {
+	        // Handle skipped tests if necessary
+	    }
+
+	    @Override
+	    public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
+	        // Handle tests that fail but are within success percentage
+	    }
+
+	    @Override
+	    public void onTestFailedWithTimeout(ITestResult result) {
+	        // Handle timeout failures (calls onTestFailure)
+	        onTestFailure(result);
+	    }
+
+	    @Override
+	    public void onStart(ITestContext context) {
+	        // Code to execute before the start of the test suite
+	    }
+
+	    @Override
+	    public void onFinish(ITestContext context) {
+	        extent.flush();
+	    }
+}

@@ -1,0 +1,34 @@
+package frame.pageObjects;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+import frame.abstarctComponents.AbstractComponents;
+
+public class CartPagePageObject extends AbstractComponents {
+	
+	public WebDriver driver;
+	
+	public CartPagePageObject(WebDriver driver)
+	{
+		super(driver);
+		this.driver=driver;
+		PageFactory.initElements(driver, this);
+	}
+	
+	
+	
+	
+	
+
+	
+	
+
+	
+	
+}
